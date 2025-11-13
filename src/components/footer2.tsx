@@ -1,4 +1,6 @@
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaResearchgate, FaTwitter, FaLinkedin } from "react-icons/fa";
+import { FaGoogleScholar } from "react-icons/fa6";
+import Link from "next/link";
 
 interface MenuItem {
   title: string;
@@ -25,16 +27,31 @@ interface Footer2Props {
 }
 
 const Footer2 = ({    
-  copyright = "© 2024 Shadcnblocks.com. All rights reserved.",  
+  copyright = "© 2024 deryauysal.com. All rights reserved.",  
 }: Footer2Props) => {
   return (
-    <section className="py-32">
-      <div className="container">
+    <section className="py-4 border-t">
+      <div className="container mx-auto">
         <footer>
-          <div className="grid grid-cols-2 gap-8 lg:grid-cols-6">            
-            <FaGithub />
+          <div className="flex justify-center gap-4">
+            <Link href="https://github.com/deryauysal">
+              <FaGithub size="2rem" />
+            </Link>
+            
+            <Link href="https://scholar.google.com/citations?user=l2jgZ9sAAAAJ">
+              <FaGoogleScholar size="2rem" />
+            </Link>
+            <Link href="https://www.researchgate.net/profile/Derya_Uysal">
+              <FaResearchgate size="2rem" />
+            </Link>
+            <Link href="https://twitter.com/sderyauysal">
+              <FaTwitter size="2rem" />
+            </Link>
+            <Link href="http://www.linkedin.com/in/derya-uysal-econometrics">
+              <FaLinkedin size="2rem" />
+            </Link>
           </div>
-          <div className="text-muted-foreground mt-24 flex flex-col justify-between gap-4 border-t pt-8 text-sm font-medium md:flex-row md:items-center">
+          <div className="text-muted-foreground flex justify-center text-sm font-medium mt-4">
             <p>{copyright}</p>            
           </div>
         </footer>

@@ -71,7 +71,7 @@ const Hero3 = ({
             )}
           </div>
         </div>
-        <div className="flex">
+        <div className="flex border-2 border-secondary">
           <Image
             src={HeroImage}
             alt="Derya Uysal profile photo"
