@@ -1,6 +1,36 @@
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from "./ui/navigation-menu";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import Logo from "@/assets/img/logo.svg";
+import Image from "next/image";
+
+const pages = [
+    {
+        id: 1,
+        label: "Home",
+        href: "/"
+    },
+    {
+        id: 2,
+        label: "Research",
+        href: "/research"
+    },
+    {
+        id: 3,
+        label: "Teaching",
+        href: "/teaching"
+    },
+    {
+        id: 4,
+        label: "Software",
+        href: "/software"
+    },
+    {
+        id: 5,
+        label: "About",
+        href: "/about"
+    }
+]
 
 
 export function NavBar(){
@@ -11,26 +41,19 @@ export function NavBar(){
                     <Link
                         href="/"
                         className="font-bold text-xl tracking-tight text-primary uppercase">
-                            Derya Uysal
+                            <Image src={Logo} alt="Logo" className="w-40" />
                     </Link>
                 </h1>
                 <NavigationMenu>
                     <NavigationMenuList className="flex items-center gap-2">
-                        <NavigationMenuItem>                            
-                            <Link href="/">Home</Link>                            
-                        </NavigationMenuItem>
-                        <NavigationMenuItem>                            
-                            <Link href="/research">Research</Link>                            
-                        </NavigationMenuItem>
-                        <NavigationMenuItem>                            
-                            <Link href="/research">Teaching</Link>                            
-                        </NavigationMenuItem>
-                        <NavigationMenuItem>                            
-                            <Link href="/research">Software</Link>                            
-                        </NavigationMenuItem>
-                        <NavigationMenuItem>                            
-                            <Link href="/research">About</Link>                            
-                        </NavigationMenuItem>
+                        {
+                            pages.map(page => (
+                                <NavigationMenuItem key={page.id}>                            
+                                    <Link href={page.href}>{page.label}</Link>                            
+                                </NavigationMenuItem>
+
+                            ))
+                        }                        
                         <NavigationMenuItem>
                             <Button asChild variant="outline">
                                 <Link href="/research">CV</Link>
