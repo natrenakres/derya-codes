@@ -3,11 +3,11 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
 export const BorderButton = ({
-  children,
+  children,  
   variant = "outline",
   className,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode;  
   variant?:
     | "outline"
     | "default"
@@ -18,15 +18,15 @@ export const BorderButton = ({
   className?: string;
 }) => {
   return (
-    <Button
+    <Button      
       variant={variant}
       className={cn(className, "relative rounded-none px-4! shadow-none")}
     >
       {children}
-      <Illustration className="absolute bottom-0 right-0 size-3 rotate-180 scale-y-[-1]" />
-      <Illustration className="absolute bottom-0 left-0 size-3" />
-      <Illustration className="absolute left-0 top-0 size-3 rotate-90" />
-      <Illustration className="absolute right-0 top-0 size-3 rotate-90 scale-y-[-1]" />
+      <Illustration className="absolute bottom-0 right-0 size-3 rotate-180 scale-y-[-1]" color="#70B2B8" />
+      <Illustration className="absolute bottom-0 left-0 size-3" color="#E72E30" />
+      <Illustration className="absolute left-0 top-0 size-3 rotate-90" color="#E65D3D" />
+      <Illustration className="absolute right-0 top-0 size-3 rotate-90 scale-y-[-1]" color="#3A5555" />
     </Button>
   );
 };

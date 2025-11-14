@@ -3,6 +3,7 @@ import { Separator } from "@/components/ui/separator";
 import { ArrowRight } from "lucide-react";
 import React from "react";
 import { FaUniversity } from "react-icons/fa";
+import { TypographyH2 } from "./ui/typography";
 
 interface ListItem {
   icon: React.ReactNode;
@@ -65,11 +66,11 @@ const List2 = ({
   ],
 }: List2Props) => {
   return (
-    <section className="py-32">
-      <div className="container px-0 md:px-8">
-        <h2 className="mb-10 px-4 text-3xl font-semibold md:mb-14 md:text-4xl">
+    <section className="py-4">
+      <div className="container mx-auto px-0">
+        <TypographyH2>
           {heading}
-        </h2>
+        </TypographyH2>
         <div className="flex flex-col">
           <Separator />
           {items.map((item, index) => (

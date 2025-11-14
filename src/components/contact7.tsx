@@ -1,10 +1,12 @@
-import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { Mail, MapPin,  Phone } from "lucide-react";
+import { TypographyH2 } from "./ui/typography";
+import { FaTwitter } from "react-icons/fa";
 
 interface Contact7Props {
   title?: string;
   description?: string;
   emailLabel?: string;
-  emailDescription?: string;
+  emailDisplay?: string;
   email?: string;
   officeLabel?: string;
   officeDescription?: string;
@@ -12,76 +14,68 @@ interface Contact7Props {
   phoneLabel?: string;
   phoneDescription?: string;
   phone?: string;
-  chatLabel?: string;
-  chatDescription?: string;
-  chatLink?: string;
+  socialLabel?: string;  
+  socialLink?: string;
 }
 
 const Contact7 = ({
   title = "Contact",  
-  emailLabel = "Email",
-  emailDescription = "We respond to all emails within 24 hours.",
-  email = "example@shadcnblocks.com",
-  officeLabel = "Office",
-  officeDescription = "Drop by our office for a chat.",
-  officeAddress = "1 Eagle St, Brisbane, QLD, 4000",
-  phoneLabel = "Phone",
-  phoneDescription = "We're available Mon-Fri, 9am-5pm.",
-  phone = "+123 456 7890",
-  chatLabel = "Live Chat",
-  chatDescription = "Get instant help from our support team.",
-  chatLink = "Start Chat",
+  emailLabel = "Email",  
+  emailDisplay = "derya.uysal(at)econ.lmu.de",
+  email = "derya.uysal(at)econ.lmu.de",
+  officeLabel = "Office",  
+  officeAddress = "University of Munich (LMU Munich) Department of Economics Munich Germany",
+  phoneLabel = "Phone",  
+  phone = "+498921802224",
+  socialLabel = "Social",  
+  socialLink = "@deryauysal",
 }: Contact7Props) => {
   return (
-    <section className="bg-background py-32">
-      <div className="container">
+    <section className="py-4">
+      <div className="container mx-auto">
         <div className="mb-14">
-          <h2 className="mb-3 mt-2 text-balance text-3xl font-semibold md:text-4xl">
+          <TypographyH2>
             {title}
-          </h2>          
+          </TypographyH2>
         </div>
         <div className="grid gap-6 md:grid-cols-2">
           <div className="bg-muted rounded-lg p-6">
             <span className="bg-accent mb-3 flex size-12 flex-col items-center justify-center rounded-full">
               <Mail className="h-6 w-auto" />
             </span>
-            <p className="mb-2 text-lg font-semibold">{emailLabel}</p>
-            <p className="text-muted-foreground mb-3">{emailDescription}</p>
+            <p className="mb-2 text-lg font-semibold">{emailLabel}</p>            
             <a
               href={`mailto:${email}`}
               className="font-semibold hover:underline"
             >
-              {email}
+              {emailDisplay}
             </a>
           </div>
           <div className="bg-muted rounded-lg p-6">
             <span className="bg-accent mb-3 flex size-12 flex-col items-center justify-center rounded-full">
               <MapPin className="h-6 w-auto" />
             </span>
-            <p className="mb-2 text-lg font-semibold">{officeLabel}</p>
-            <p className="text-muted-foreground mb-3">{officeDescription}</p>
-            <a href="#" className="font-semibold hover:underline">
+            <p className="mb-2 text-lg font-semibold">{officeLabel}</p>            
+            <span className="font-semibold hover:underline">
               {officeAddress}
-            </a>
+            </span>
           </div>
           <div className="bg-muted rounded-lg p-6">
             <span className="bg-accent mb-3 flex size-12 flex-col items-center justify-center rounded-full">
               <Phone className="h-6 w-auto" />
             </span>
-            <p className="mb-2 text-lg font-semibold">{phoneLabel}</p>
-            <p className="text-muted-foreground mb-3">{phoneDescription}</p>
+            <p className="mb-2 text-lg font-semibold">{phoneLabel}</p>            
             <a href={`tel:${phone}`} className="font-semibold hover:underline">
               {phone}
             </a>
           </div>
           <div className="bg-muted rounded-lg p-6">
             <span className="bg-accent mb-3 flex size-12 flex-col items-center justify-center rounded-full">
-              <MessageCircle className="h-6 w-auto" />
+              <FaTwitter className="h-6 w-auto" />
             </span>
-            <p className="mb-2 text-lg font-semibold">{chatLabel}</p>
-            <p className="text-muted-foreground mb-3">{chatDescription}</p>
+            <p className="mb-2 text-lg font-semibold">{socialLabel}</p>            
             <a href="#" className="font-semibold hover:underline">
-              {chatLink}
+              {socialLink}
             </a>
           </div>
         </div>
