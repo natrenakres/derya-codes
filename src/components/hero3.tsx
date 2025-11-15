@@ -35,7 +35,7 @@ const Hero3 = ({
   buttons = {
     primary: {
       text: "Research",
-      url: "/resarch",
+      url: "/research",
     },
     secondary: {
       text: "About",

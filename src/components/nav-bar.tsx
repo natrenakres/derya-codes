@@ -1,7 +1,8 @@
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from "./ui/navigation-menu";
 import { Button } from "./ui/button";
 import Link from "next/link";
-import Logo from "@/assets/img/logo.svg";
+import LogoLight from "@/assets/img/logo-light.svg";
+import LogoDark from "@/assets/img/logo-dark.svg";
 import Image from "next/image";
 
 const pages = [
@@ -41,7 +42,7 @@ export function NavBar(){
                     <Link
                         href="/"
                         className="font-bold text-xl tracking-tight text-primary uppercase">
-                            <Image src={Logo} alt="Logo" className="w-40" />
+                            <Image src={LogoLight} alt="Logo" className="w-40" />
                     </Link>
                 </h1>
                 <NavigationMenu>
