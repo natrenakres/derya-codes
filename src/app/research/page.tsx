@@ -17,28 +17,28 @@ const workingPapers = [
         id: 1,
         title: "Heterogeneity in Network Peer Effects",
         abstract: "We study the peer effects on school achievement exploiting the network structure of friendships within a classroom. In particular, we focus on the role of heterogeneity in network peer effects by accounting for network-specific factors and different driving mechanisms of peer behavior. ",
-        link: "/",
+        link: "/research/1",
         cover: WorkingPaperCover1
     },
     {
         id: 2,
         title: "Covariate Balancing and the Equivalence of Weighting and Doubly Robust Estimators of AverageTreatment Effects",
         abstract: "We show that when the propensity score is estimated using a suitable covariate balancing procedure, the commonly used inverse probability weighting (IPW) estimator, augmented inverse probability weighting (AIPW) with linear conditional mean, and inverse probability weighted regression adjustment (IPWRA) with linear conditional mean are all numerically the same for estimating the average treatment effect (ATE) or the average treatment effect on the treated (ATT). Further, suitably chosen covariate balancing weights are automatically normalized, which means that normalized and unnormalized versions of IPW and AIPW are identical.",
-        link: "/",
+        link: "/research/2",
         cover: WorkingPaperCover2
     }, 
     {
         id: 3,
         title: "Doubly Robust Estimation of Local Average Treatment Effects Using Inverse Probability Weighted Regression Adjustment",
         abstract: "We revisit the problem of estimating the local average treatment effect (LATE) and the local average treatment effect on the treated (LATT) when control variables are available, either to render the instrumental variable (IV) suitably exogenous or to improve precision.",
-        link: "/",
+        link: "/research/3",
         cover: WorkingPaperCover3
     }, 
     {
         id: 4,
         title: "The Impact of Retention on School Attainment: Local Average Treatment Effect(s) with a Multivalued Instrument",
         abstract: "We investigate the identification and estimation of different local average treatment effect (LATE) parameters that are defined in terms of a multivalued instrument.",
-        link: "/",
+        link: "/research/4",
         cover: WorkingPaperCover4
 
     }
@@ -90,7 +90,7 @@ export default function ResearchPage() {
             </p>
             <div className='flex w-full flex-col justify-center gap-2 sm:flex-row '>
                 <Button asChild className='w-full sm:w-auto'>
-                    <Link href="/research">
+                    <Link href="/research/1">
                     Read
                     <span className='sr-only'>
                         Abadie's Kappa and Weighting Estimators of the Local Average Treatment Effect paper.
@@ -152,9 +152,7 @@ export default function ResearchPage() {
                 </div>
             </div>
       </section>
-
       <PublicationList />
-
     </div>
   );
 }

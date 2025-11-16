@@ -146,7 +146,7 @@ function PublicationCard({
         <h2 className='text-base font-medium tracking-tighter'>
           <span className='font-mono'>{publication.year}</span>
         </h2>
-        <Link href='/research'>
+        <Link href='/research/1'>
           <BorderButton
             variant='outline'
             className='relative rounded-none px-4! uppercase shadow-none cursor-pointer'
