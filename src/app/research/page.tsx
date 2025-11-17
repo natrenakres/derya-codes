@@ -10,6 +10,12 @@ import WorkingPaperCover2 from "@/assets/img/working_paper_cover_2.png";
 import WorkingPaperCover3 from "@/assets/img/working_paper_cover_3.png";
 import WorkingPaperCover4 from "@/assets/img/working_paper_cover_4.png";
 import { PublicationList } from '@/components/publication-list';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: "Research",
+    description: "Explore Derya’s academic research, published papers, and ongoing projects all in one place."
+}
 
 
 const workingPapers = [

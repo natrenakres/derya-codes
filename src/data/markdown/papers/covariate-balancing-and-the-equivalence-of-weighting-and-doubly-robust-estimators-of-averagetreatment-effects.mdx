@@ -1,0 +1,13 @@
+---
+layout: paper
+title: Covariate Balancing and the Equivalence of Weighting and Doubly Robust
+  Estimators of AverageTreatment Effects
+published: false
+submitted: false
+date: 2023-10-30T08:52:39.843Z
+coauthor:
+  - Tymon Słoczyński
+  - Jeffrey M. Wooldridge
+lecturefiles: public/balancing_20231027.pdf
+---
+We show that when the propensity score is estimated using a suitable covariate balancing procedure, the commonly used inverse probability weighting (IPW) estimator, augmented inverse probability weighting (AIPW) with linear conditional mean, and inverse probability weighted regression adjustment (IPWRA) with linear conditional mean are all numerically the same for estimating the average treatment effect (ATE) or the average treatment effect on the treated (ATT). Further, suitably chosen covariate balancing weights are automatically normalized, which means that normalized and unnormalized versions of IPW and AIPW are identical. For estimating the ATE, the weights that achieve the algebraic equivalence of IPW, AIPW, and IPWRA are based on propensity scores estimated using the inverse probability tilting (IPT) method of Graham, Pinto, and Egel (2012). For the ATT, the weights are obtained using the covariate balancing propensity score (CBPS) method developed in Imai and Ratkovic (2014). These equivalences also make covariate balancing methods attractive when the treatment is confounded and one is interested in the local average treatment effect.

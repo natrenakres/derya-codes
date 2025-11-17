@@ -9,7 +9,6 @@ import WorkingPaperCover2 from '@/assets/img/working_paper_cover_2.png';
 
 import {
   Card,
-  CardAction,
   CardContent,
   CardFooter,
   CardHeader,
@@ -17,6 +16,13 @@ import {
 } from '@/components/ui/card';
 import { University } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "Teaching",
+  description: "Discover Derya’s teaching portfolio, including courses taught, instructional materials, and her approach to fostering analytical and evidence-based learning."
+}
+
 
 export default function TeachingPage() {
   return (
