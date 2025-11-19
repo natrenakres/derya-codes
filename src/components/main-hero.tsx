@@ -3,11 +3,9 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import HeroImage from "@/assets/img/hero.jpg";
 import Link from "next/link";
+import { siteMetadata } from "@/data/metadata";
 
-interface Hero3Props {
-  heading?: string;
-  title?: string;
-  description?: string;
+interface MainHeroProps {  
   buttons?: {
     primary?: {
       text: string;
@@ -17,21 +15,10 @@ interface Hero3Props {
       text: string;
       url: string;
     };
-  };
-  reviews?: {
-    count: number;
-    avatars: {
-      src: string;
-      alt: string;
-    }[];
-    rating?: number;
-  };
+  }
 }
 
-const Hero3 = ({
-  heading = "Dr. Derya Uysal",
-  title = "Associate Professor",
-  description = "I am an associate professor in the Department of Economics at the University of Munich. I am also an Affiliate at CESifo. My research interests are microeconometrics and applied econometrics in labour economics, with particular emphasis on program evaluation.",
+export const MainHero = ({  
   buttons = {
     primary: {
       text: "Research",
@@ -42,7 +29,8 @@ const Hero3 = ({
       url: "/about",
     },
   }
-}: Hero3Props) => {
+}: MainHeroProps) => {
+  const { title, name, description } = siteMetadata;
   return (
     <section className="py-4">
       <div className="container m-auto grid items-center gap-10 lg:grid-cols-2 lg:gap-20">
@@ -51,7 +39,7 @@ const Hero3 = ({
             {title}
           </p>
           <h2 className="my-4 text-pretty text-4xl font-bold lg:text-6xl xl:text-7xl">
-            {heading}
+            {name}
           </h2>
           <p className="text-muted-foreground mb-8 max-w-xl lg:text-xl">
             {description}
@@ -92,4 +80,4 @@ const Hero3 = ({
   );
 };
 
-export { Hero3 };
+

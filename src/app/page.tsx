@@ -1,16 +1,16 @@
 import { Contact7 } from "@/components/contact7";
-import { Hero3 } from "@/components/hero3";
+import { MainHero } from "@/components/main-hero";
 import { List2 } from "@/components/list2";
 import { PublicationList } from "@/components/publication-list";
-import { getPublicationList } from "@/lib/fetch";
+import { getPaperList } from "@/lib/matadata-parser";
+import { sortByDateDesc } from "@/lib/utils";
 
 export default async function Home() {
-  const publicationList = await getPublicationList(); 
-
+  const paperList = await getPaperList();   
   return (
     <>
-      <Hero3 />    
-      <PublicationList />
+      <MainHero />    
+      <PublicationList publicationList={sortByDateDesc(paperList.filter(p => p.metadata.published))} />
       <List2 />
       <Contact7 />
     </>

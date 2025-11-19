@@ -1,35 +1,25 @@
 import { Mail, MapPin,  Phone } from "lucide-react";
 import { TypographyH2 } from "./ui/typography";
-import { FaTwitter } from "react-icons/fa";
+import { FaGithub, FaTwitter } from "react-icons/fa";
+import { siteMetadata } from "@/data/metadata";
 
 interface Contact7Props {
-  title?: string;
-  description?: string;
-  emailLabel?: string;
-  emailDisplay?: string;
-  email?: string;
-  officeLabel?: string;
-  officeDescription?: string;
-  officeAddress?: string;
-  phoneLabel?: string;
-  phoneDescription?: string;
-  phone?: string;
-  socialLabel?: string;  
-  socialLink?: string;
+  title?: string;  
+  emailLabel?: string;  
+  officeLabel?: string;    
+  phoneLabel?: string;    
+  githubLabel?: string;  
+  
 }
 
 const Contact7 = ({
   title = "Contact",  
   emailLabel = "Email",  
-  emailDisplay = "derya.uysal(at)econ.lmu.de",
-  email = "derya.uysal@econ.lmu.de",
-  officeLabel = "Office",  
-  officeAddress = "University of Munich (LMU Munich) Department of Economics Munich Germany",
-  phoneLabel = "Phone",  
-  phone = "+498921802224",
-  socialLabel = "Social",  
-  socialLink = "@deryauysal",
+  officeLabel = "Office",    
+  phoneLabel = "Phone",    
+  githubLabel = "Github"  
 }: Contact7Props) => {
+  const { email, emailDisplay, officeAddress, phone, github, githubAccount } = siteMetadata;
   return (
     <section className="py-4">
       <div className="container mx-auto">
@@ -71,11 +61,11 @@ const Contact7 = ({
           </div>
           <div className="bg-muted rounded-lg p-6">
             <span className="bg-accent mb-3 flex size-12 flex-col items-center justify-center rounded-full">
-              <FaTwitter className="h-6 w-auto" />
+              <FaGithub  className="h-6 w-auto" />
             </span>
-            <p className="mb-2 text-lg font-semibold">{socialLabel}</p>            
-            <a href="#" className="font-semibold hover:underline">
-              {socialLink}
+            <p className="mb-2 text-lg font-semibold">{githubLabel}</p>            
+            <a href={github} className="font-semibold hover:underline">
+              {githubAccount}
             </a>
           </div>
         </div>

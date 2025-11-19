@@ -1,16 +1,21 @@
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import PaperCover from "@/assets/img/sample.png";
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
+import { sortByDateDesc } from '@/lib/utils';
+
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { TypographyH2 } from '@/components/ui/typography';
 import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { getPaperList, getProjectList } from '@/lib/matadata-parser';
+import { PublicationList } from '@/components/publication-list';
+import { GoProject } from 'react-icons/go';
+
+import PaperCover from "@/assets/img/sample.png";
 import WorkingPaperCover1 from "@/assets/img/working_paper_cover_1.png";
 import WorkingPaperCover2 from "@/assets/img/working_paper_cover_2.png";
 import WorkingPaperCover3 from "@/assets/img/working_paper_cover_3.png";
 import WorkingPaperCover4 from "@/assets/img/working_paper_cover_4.png";
-import { PublicationList } from '@/components/publication-list';
-import { Metadata } from 'next';
 
 export const metadata: Metadata = {
     title: "Research",
@@ -50,26 +55,15 @@ const workingPapers = [
     }
 ]
 
-const projects = [
-    {
-        id: 10,
-        title: "Effect of school quality on rental prices: Application of Machine Learning Methods"
-    },
-    {
-        id:11,
-        title: "Estimation of causal effects of multiple treatments in observational studies with machine learning methods"
-    }, 
-    {
-        id: 12,
-        title: "Network effect of unliked ones"
-    }, 
-    {
-        id: 13,
-        title: "Testing complier's characteristics"
-    }
-]
 
-export default function ResearchPage() {
+
+export default async function ResearchPage() {
+    const paperList = await getPaperList();   
+    const projectList = await getProjectList();
+    const publicationList = sortByDateDesc(paperList.filter(p => p.metadata.published));
+    const workingPaperList = sortByDateDesc(paperList.filter(p => !p.metadata.published));
+    const lastPublication = publicationList[0];
+
   return (
     <div className='py-4'>
       <section className='py-4'>
@@ -89,17 +83,17 @@ export default function ResearchPage() {
               Last Publication
             </p>
             <TypographyH2>
-              Abadie's Kappa and Weighting Estimators of the Local Average Treatment Effect
+              {lastPublication.metadata.title}
             </TypographyH2>
             <p className='text-muted-foreground mb-8 max-w-xl lg:text-xl'>
-              Journal of Business & Economic Statistics2024
+              {lastPublication.metadata.journal}
             </p>
             <div className='flex w-full flex-col justify-center gap-2 sm:flex-row '>
                 <Button asChild className='w-full sm:w-auto'>
-                    <Link href="/research/1">
+                    <Link href={`/research/${lastPublication.slug}`}>
                     Read
                     <span className='sr-only'>
-                        Abadie's Kappa and Weighting Estimators of the Local Average Treatment Effect paper.
+                        {lastPublication.metadata.title}
                     </span>
                     </Link>
                 </Button>
@@ -120,19 +114,19 @@ export default function ResearchPage() {
                 <TypographyH2>Working Papers</TypographyH2>
                 <div className='mx-auto flex gap-4'>
                     {
-                        workingPapers.map(paper => (
-                            <Card key={paper.id} className='w-80'>
+                        workingPaperList.map(paper => (
+                            <Card key={paper.slug} className='w-80'>
                                 <CardHeader>
-                                    <Image src={paper.cover} alt={paper.title} />
+                                    <Image src={WorkingPaperCover1} alt={paper.metadata.title ?? ""} />
                                 </CardHeader>
                                 <CardContent>
-                                    <CardTitle>{paper.title}</CardTitle>
-                                    <CardDescription>{paper.abstract}</CardDescription>
+                                    <CardTitle>{paper.metadata.title}</CardTitle>
+                                    {/* <CardDescription>{paper.metadata.}</CardDescription> */}
                                 </CardContent>
                                 <CardFooter>
                                     <CardAction>
                                         <Button asChild>
-                                            <Link href={paper.link}>Read</Link>
+                                            <Link href={`/research/${paper.slug}`}>Read</Link>
                                         </Button>
                                     </CardAction>
                                 </CardFooter>
@@ -148,17 +142,20 @@ export default function ResearchPage() {
                 <TypographyH2>Projects</TypographyH2>
                 <div className="mx-auto flex gap-4">
                     {
-                        projects.map(project => (
-                            <Card key={project.id} className='p-2'>
-                                <CardTitle>{project.title}</CardTitle>
-                            </Card>
+                        projectList.map(project => (
+                            <Link key={project.slug} href={`/research/${project.slug}`}>
+                                <Card  className='p-2 flex flex-row max-w-2xl'>
+                                    <GoProject className="h-10 w-10" />
+                                    <CardTitle>{project.metadata.title}</CardTitle>                                     
+                                </Card>
+                            </Link>
                         ))
 
                     }
                 </div>
             </div>
       </section>
-      <PublicationList />
+      <PublicationList publicationList={publicationList} />
     </div>
   );
 }

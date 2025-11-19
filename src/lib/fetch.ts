@@ -1,7 +1,7 @@
 import path from 'node:path';
 import fs from 'node:fs';
 
-type Metadata = {
+export type Metadata = {
   title: string;
   date: string;
   publishedAt: string;
@@ -42,8 +42,7 @@ function getMDXFiles(dir: string) {
   return fs.readdirSync(dir).filter((file) => path.extname(file) === '.mdx');
 }
 
-function getMDXData(dir: string) {
-  console.log('DIR: ', dir);
+function getMDXData(dir: string) {  
   const mdxFiles = getMDXFiles(dir);
   return mdxFiles.map((file) => {
     const { metadata, content } = readMDXFile(path.join(dir, file));
