@@ -19,5 +19,5 @@ export const siteMetadata = {
   googleScholar: 'https://scholar.google.com/citations?user=l2jgZ9sAAAAJ',
   linkedIn: 'http://www.linkedin.com/in/derya-uysal-econometrics',
   blueSky: 'https://bsky.app/profile/deryauysal.com',
-  locale: 'en-US',
+  locale: 'en-US',  
 };

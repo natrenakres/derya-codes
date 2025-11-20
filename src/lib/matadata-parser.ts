@@ -27,6 +27,18 @@ export type ProjectMeta = Metadata & {
   coauthor: Array<string>
 }
 
+export type PresentationMeta = Metadata & {
+  year: string;
+  presentations: Array<PresentationItem>
+}
+
+export type PresentationItem = {
+  title: string
+  location: string
+  url: string
+  id: string
+}
+
 export function parseFrontmatter<T extends Metadata = Metadata>(
   fileContent: string
 ) {
@@ -72,6 +84,13 @@ export async function getProjectList(): Promise<Array<Project>> {
   return getMDXData<ProjectMeta>(dir);
 }
 
+export async function getPeresentationList(): Promise<Array<Presentation>> {
+  const dir = path.join(process.cwd(), 'src', 'data', 'markdown', 'presentations');
+
+  return getMDXData<PresentationMeta>(dir);
+
+}
+
 export type Publication = {
     metadata: PaperMeta;
     slug: string;
@@ -80,6 +99,12 @@ export type Publication = {
 
 export type Project = {
   metadata: ProjectMeta;
+  slug: string;
+  content: string;
+}
+
+export type Presentation = {
+  metadata: PresentationMeta;
   slug: string;
   content: string;
 }
