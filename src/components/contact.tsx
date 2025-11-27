@@ -25,7 +25,7 @@ const Contact = () => {
               {emailDisplay}
             </a>
           </div>
-          <div className='bg-muted rounded-lg p-6'>
+          <address className='bg-muted rounded-lg p-6'>
             <span className='bg-accent mb-3 flex size-12 flex-col items-center justify-center rounded-full'>
               <MapPin className='h-6 w-auto' />
             </span>
@@ -33,7 +33,7 @@ const Contact = () => {
             <span className='font-semibold hover:underline'>
               {officeAddress}
             </span>
-          </div>
+          </address>
           <div className='bg-muted rounded-lg p-6'>
             <span className='bg-accent mb-3 flex size-12 flex-col items-center justify-center rounded-full'>
               <Phone className='h-6 w-auto' />
