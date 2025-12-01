@@ -155,7 +155,7 @@ export default async function ResearchPage() {
                 </div>
             </div>
       </section>
-      <PublicationList publicationList={publicationList} />
+      <PublicationList workList={publicationList} />
     </div>
   );
 }

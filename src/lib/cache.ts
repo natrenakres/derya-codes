@@ -1,22 +1,10 @@
-const citationCache = new Map();
-const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours
+import { Redis } from "@upstash/redis";
 
+export const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours
 
-export function getFromCache(doi: string) {
-    const item = citationCache.get(doi);
-    if(!item) return null;
+const redis = new Redis({
+    url: process.env.UPSTASH_REDIS_REST_URL,
+    token: process.env.UPSTASH_REDIS_REST_TOKEN
+});
 
-    if(Date.now() - item.timestamp > CACHE_TTL) {
-        citationCache.delete(doi);
-        return null;
-    }
-
-    return item.data;
-}
-
-export function writeToCache(doi: string, data: any) {
-    citationCache.set(doi, {
-        data,
-        timestamp: Date.now()
-    })
-}
+export default redis;
