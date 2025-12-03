@@ -1,4 +1,4 @@
-import { Content1 } from '@/components/content1';
+import { PaperContent } from '@/components/paper-content';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -7,8 +7,18 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
+import { getPaper } from '@/lib/fetch';
 
-export default function ResearchDetailPage() {
+export default async function ResearchDetailPage({params} : { params: Promise<{id: string}>}) {
+  const { id: paperId } = await params;
+
+  const paper = await getPaper(paperId);
+
+  console.log("Paper: ", paper);
+
+  
+
+
   return (
     <>
       <section className='py-4'>
@@ -24,13 +34,13 @@ export default function ResearchDetailPage() {
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbPage>Research Title</BreadcrumbPage>
+                <BreadcrumbPage>{paper?.title}</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
         </div>
       </section>
-      <Content1 />
+      <PaperContent paper={paper} />
     </>
   );
 }

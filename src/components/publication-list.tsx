@@ -1,4 +1,4 @@
-import type { Work } from '@/lib/fetch';
+import type { Paper } from '@/lib/fetch';
 import Link from 'next/link';
 import { Target } from 'lucide-react';
 import { BorderButton } from '@/components/shadcnblocks/border-button';
@@ -7,7 +7,7 @@ import { Separator } from './ui/separator';
 
 
 
-const PublicationList = ({workList}: {workList?: Work[]}) => { 
+const PublicationList = ({paperList}: {paperList?: Paper[]}) => { 
 
   return (
     <section className='bg-background py-4'>
@@ -17,8 +17,8 @@ const PublicationList = ({workList}: {workList?: Work[]}) => {
         </TypographyH2>
         <div className='flex w-full flex-wrap gap-4 lg:flex-row'>
           <Separator />
-          {workList?.map((work) => (
-            <PublicationCard key={work.paperId} work={work} />
+          {paperList?.map((paper) => (
+            <PublicationCard key={paper.paperId} paper={paper} />
           ))}
         </div>
       </div>
@@ -29,10 +29,10 @@ const PublicationList = ({workList}: {workList?: Work[]}) => {
 export { PublicationList };
 
 function PublicationCard({
-  work,
+  paper,
 }: {
-  work: Work}) {
-    const { paperId, title, journal, keywords, publicationDate  } = work;
+  paper: Paper}) {
+    const { paperId, title, journal, fieldsOfStudy, publicationDate  } = paper;
   return (
     <div className='bg-muted flex w-full md:w-80 flex-col justify-between gap-2 rounded-3xl p-5'>
       <div>
@@ -40,14 +40,14 @@ function PublicationCard({
           {title}
         </h2>
         <p className='text-foreground/60 mt-4 w-full max-w-xs text-lg tracking-tight'>
-          {journal}
+          {journal?.name}
         </p>
       </div>
       <ul className='mt-5'>
         <li className='text-foreground/40 mb-4 text-xs font-medium uppercase'>
           Keywords:
         </li>
-        {keywords?.map((keyword) => (
+        {fieldsOfStudy?.map((keyword) => (
           <li
             key={keyword}
             className='mt-1 flex items-center gap-2 font-medium'
