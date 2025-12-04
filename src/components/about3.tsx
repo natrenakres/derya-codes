@@ -109,11 +109,14 @@ const About3 = ({
           <p className="text-muted-foreground">{description}</p>
         </div>
         <div className="grid gap-7 lg:grid-cols-3">
-          <Image
-            src={ProfileImg}
-            alt="Derya Uysal profile photo"
-            className="size-full max-h-[620px] rounded-xl object-cover lg:col-span-2"
-          />
+          <div 
+          className="lg:col-span-2 rounded-(--card-radius) bg-black/2 dark:bg-white/15 p-(--card-padding) outline -outline-offset-1 outline-black/4 dark:outline-white/25 [--card-padding:--spacing(3)] [--card-radius:var(--radius-4xl)]">
+            <Image
+              src={ProfileImg}
+              alt="Derya Uysal profile photo"
+              className="aspect-5/6 rounded-[calc(var(--card-radius)-var(--card-padding))] bg-gray-800 object-cover shadow-2xl outline -outline-offset-1 outline-white/10"
+            />
+          </div>
           <div className="flex flex-col gap-7 md:flex-row lg:flex-col">            
             <Card>                            
                 <CardHeader>

@@ -68,11 +68,11 @@ export const MainHero = ({
             )}
           </div>
         </div>
-        <div className="flex border-2 border-secondary">
+        <div className="flex rounded-(--card-radius) bg-black/2 dark:bg-white/15 p-(--card-padding) outline -outline-offset-1 outline-black/4 dark:outline-white/25 [--card-padding:--spacing(3)] [--card-radius:var(--radius-4xl)]">
           <Image
             src={HeroImage}
             alt="Derya Uysal Profile Photo"
-            className="max-h-[600px] w-full rounded-md object-cover lg:max-h-[800px]"
+            className="max-h-[600px] w-full lg:max-h-[800px] rounded-[calc(var(--card-radius)-var(--card-padding))] bg-gray-800 object-cover shadow-2xl outline -outline-offset-1 outline-white/10"
           />
         </div>
       </div>
