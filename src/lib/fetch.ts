@@ -156,6 +156,29 @@ async function getPaperListByAuthorId( type: WorkType, authorId?: string,): Prom
   }
 }
 
+export async function getAuthorData() : Promise<Author> {
+  const key = `author:${SEMANTICSCHOLAR_AUTHOR_ID}`;
+  const cached = await redis.get(key);
+
+  if(cached) {
+    console.log("Hit the author cache: ", key);
+    return cached as Author;
+  }
+
+  try {
+    const response = await getSemanticScholarDataLimitter(SEMANTICSCHOLAR_AUTHOR_ID);
+
+    await redis.set(key, response, {
+      ex: CACHE_TTL
+    });
+  
+    return response;
+  } catch (error) {
+    console.error("Error during the fetch author data");
+    throw error;
+  }
+}
+
 
 export async function getPaper(paperId: string): Promise<PaperDetail> {
   const key = `paper:${paperId}`;

@@ -4,113 +4,40 @@ import Matlab from "@/assets/img/matlab.svg";
 import Stata from "@/assets/img/stata.svg";
 import RLogo from "@/assets/img/Rlogo.svg";
 import Python from "@/assets/img/python.svg";
+import Gauss from "@/assets/img/gauss.png";
+import Latex from "@/assets/img/latex.svg";
 
 import { siteMetadata } from "@/data/metadata";
-import { Badge } from "./ui/badge";
-import { FaBook, FaR } from "react-icons/fa6";
-import { FaBookOpen, FaBookReader, FaGithub, FaPython } from "react-icons/fa";
+
+import { FaGithub } from "react-icons/fa";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { getAuthorData } from "@/lib/fetch";
+import { TypographyH2 } from "./ui/typography";
+import { Experience1 } from "./experience1";
 
-interface About3Props {
-  title?: string;
-  description?: string;
-  mainImage?: {
-    src: string;
-    alt: string;
-  };
-  secondaryImage?: {
-    src: string;
-    alt: string;
-  };
-  breakout?: {
-    src: string;
-    alt: string;
-    title?: string;
-    description?: string;
-    buttonText?: string;
-    buttonUrl?: string;
-  };
-  companiesTitle?: string;
-  companies?: Array<{
-    src: string;
-    alt: string;
-  }>;
-  achievementsTitle?: string;
-  achievementsDescription?: string;
-  achievements?: Array<{
-    label: string;
-    value: string;
-  }>;
-}
 
-const softwares = [
-  {
-    src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-1.svg",
-    alt: "Arc",
-  },
-  {
-    src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-2.svg",
-    alt: "Descript",
-  },
-  {
-    src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-3.svg",
-    alt: "Mercury",
-  },
-  {
-    src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-4.svg",
-    alt: "Ramp",
-  },
-  {
-    src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-5.svg",
-    alt: "Retool",
-  },
-  {
-    src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-6.svg",
-    alt: "Watershed",
-  },
-];
 
-const defaultAchievements = [
-  { label: "Publications ", value: "16" },
-  { label: "h-index", value: "8" },
-  { label: "Citations", value: "256" },
-  { label: "Recognized Awards", value: "10+" },
-];
 
-const About3 = ({
-  title = "About",    
-  secondaryImage = {
-    src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
-    alt: "placeholder",
-  },
-  breakout = {
-    src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-1.svg",
-    alt: "logo",
-    title: "Hundreds of blocks at Shadcnblocks.com",
-    description:
-      "Providing businesses with effective tools to improve workflows, boost efficiency, and encourage growth.",
-    buttonText: "Discover more",
-    buttonUrl: "https://shadcnblocks.com",
-  },
-  companiesTitle = "Valued by clients worldwide",
-  companies = softwares,
-  achievementsTitle = "My Achievements in Numbers",
-  achievementsDescription = "Providing businesses with effective tools to improve workflows, boost efficiency, and encourage growth.",
-  achievements = defaultAchievements,
-}: About3Props = {}) => {
+export async function About3() {
   const { description } = siteMetadata;
+  const { citationCount, hIndex, paperCount } = await getAuthorData();
+  const myAchievements = [
+      { id: 101, label: "Papers ", value: paperCount },
+      { id: 102, label: "h-index", value: hIndex },
+      { id: 103, label: "Citations", value: citationCount }      
+    ];
+
   return (
     <section className="py-4">
       <div className="container m-auto">
         <div className="mb-14 grid gap-5 text-center md:grid-cols-2 md:text-left">
-          <h1 className="text-5xl font-semibold">{title}</h1>
+          <h1 className="text-5xl font-semibold">About</h1>
           <p className="text-muted-foreground">{description}</p>
         </div>
         <div className="grid gap-7 lg:grid-cols-3">
-          <div 
-          className="lg:col-span-2 rounded-(--card-radius) bg-black/2 dark:bg-white/15 p-(--card-padding) outline -outline-offset-1 outline-black/4 dark:outline-white/25 [--card-padding:--spacing(3)] [--card-radius:var(--radius-4xl)]">
+          <div className="lg:col-span-2 rounded-(--card-radius) bg-black/2 dark:bg-white/15 p-(--card-padding) outline -outline-offset-1 outline-black/4 dark:outline-white/25 [--card-padding:--spacing(3)] [--card-radius:var(--radius-4xl)]">
             <Image
               src={ProfileImg}
               alt="Derya Uysal profile photo"
@@ -165,21 +92,20 @@ const About3 = ({
                 <Image src={RLogo} className="h-16 w-auto md:h-18" alt="R programming language logo" />
                 <Image src={Matlab} className="h-16 w-auto md:h-18" alt="Matlab logo" />
                 <Image src={Stata} className="h-16 w-auto md:h-18" alt="Stata logo" />
+                <Image src={Gauss} className="h-auto w-auto md:h-18" alt="GAUSS logo" />
+                <Image src={Latex} className="h-16 w-auto md:h-18 dark:bg-white" alt="Latex logo" />
               </div>
           </div>
         </div>
         <div className="bg-muted relative overflow-hidden rounded-xl p-7 md:p-16">
           <div className="flex flex-col gap-4 text-center md:text-left">
             <h2 className="text-3xl font-semibold md:text-4xl">
-              {achievementsTitle}
-            </h2>
-            <p className="text-muted-foreground max-w-xl">
-              {achievementsDescription}
-            </p>
+              My Achievements in Numbers
+            </h2>            
           </div>
-          <div className="mt-10 grid grid-cols-2 gap-x-4 gap-y-8 text-center lg:grid-cols-4">
-            {achievements.map((item, idx) => (
-              <div className="flex flex-col gap-2" key={item.label + idx}>
+          <div className="mt-10 grid grid-cols-2 gap-x-4 gap-y-8 text-center lg:grid-cols-3">
+            {myAchievements.map(item => (
+              <div className="flex flex-col gap-2" key={item.id}>
                 <span className="text-4xl font-semibold md:text-5xl">
                   {item.value}
                 </span>
@@ -188,9 +114,38 @@ const About3 = ({
             ))}
           </div>
         </div>
+        <div className="py-32">
+          <TypographyH2>Professional Activities</TypographyH2>
+          <div className="py-4 grid grid-cols-3 gap-1">
+            <Card>
+              <CardHeader>
+                <CardTitle className="font-bold">Refereeing</CardTitle>
+              </CardHeader>
+              <CardContent>
+                Journal of Causal Inference, Referee for Journal of Business & Economic Statistics, Journal of the Royal Statistical Society, Journal of Economic Psychology, Journal of Banking and Finance, IHS Economics Series, Empirical Economics, Journal of Statistical Computation and Simulation, Journal of Human Capital, Journal of Labor Research
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="font-bold">Administrative</CardTitle>
+              </CardHeader>
+              <CardContent>
+                Women’s representative, Department of Economics, LMU Munich, 10/2016-09/2018 Co-organizer Research Workshop "Empirical Economics", LMU Munich, 02/2016-current Co-organizer Econometrics Seminar, IHS Vienna, 11/2011-11/2015
+              </CardContent>
+            </Card>
+            <Card>
+                <CardHeader>
+                  <CardTitle className="font-bold">Professional Memberships</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  Member of the graduate program GRK 1928 "Microeconomic Determinants of Labor Productivity" funded by the Deutsche Forschungsgemeinschaft (DFG) Member of the Collaborative Research Center (SFB) TRR 190 funded by the Deutsche Forschungsgemeinschaft (DFG) The Econometric Society Verein für Socialpolitik German Statistical Society (DStatG)
+                </CardContent>
+            </Card>
+          </div>
+        </div>
+        <Experience1 />
       </div>
     </section>
   );
 };
 
-export { About3 };
