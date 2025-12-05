@@ -7,22 +7,25 @@ import Python from "@/assets/img/python.svg";
 import Gauss from "@/assets/img/gauss.png";
 import Latex from "@/assets/img/latex.svg";
 
-import { siteMetadata } from "@/data/metadata";
+
 
 import { FaGithub } from "react-icons/fa";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { getAuthorData } from "@/lib/fetch";
-import { TypographyH2 } from "./ui/typography";
-import { Experience1 } from "./experience1";
+import { TypographyH2, TypographyH3 } from "./ui/typography";
+import { ExperienceList } from "./experience-list";
+import { getAbout, getExperienceList } from "@/lib/matadata-parser";
+import { DownloadFileButton } from "./download-file-button";
 
 
+import Content, { metadata } from "@/data/markdown/about/about.mdx";
 
-
-export async function About3() {
-  const { description } = siteMetadata;
+export async function About() {  
   const { citationCount, hIndex, paperCount } = await getAuthorData();
+  const experinceList = await getExperienceList();  
+  
   const myAchievements = [
       { id: 101, label: "Papers ", value: paperCount },
       { id: 102, label: "h-index", value: hIndex },
@@ -33,8 +36,10 @@ export async function About3() {
     <section className="py-4">
       <div className="container m-auto">
         <div className="mb-14 grid gap-5 text-center md:grid-cols-2 md:text-left">
-          <h1 className="text-5xl font-semibold">About</h1>
-          <p className="text-muted-foreground">{description}</p>
+          <TypographyH2>{metadata.title}</TypographyH2>
+          <div className="text-muted-foreground">
+              <Content />
+          </div>
         </div>
         <div className="grid gap-7 lg:grid-cols-3">
           <div className="lg:col-span-2 rounded-(--card-radius) bg-black/2 dark:bg-white/15 p-(--card-padding) outline -outline-offset-1 outline-black/4 dark:outline-white/25 [--card-padding:--spacing(3)] [--card-radius:var(--radius-4xl)]">
@@ -45,46 +50,29 @@ export async function About3() {
             />
           </div>
           <div className="flex flex-col gap-7 md:flex-row lg:flex-col">            
-            <Card>                            
-                <CardHeader>
-                  <CardTitle>Stata package: kappalate</CardTitle>
-                </CardHeader>
-                <CardContent className="prose dark:prose-invert mb-8">
-                  <p>
-                    Stata package to estimate the local average treatment effect (LATE) using Abadie's kappa approach and other weighting estimators (with Tymon Słoczyński and Jeffrey M. Wooldridge).
-                  </p>
-                  <p>
-                    To download from SSC, type ssc install kappalate in Stata.
-                  </p>
-                </CardContent>
-                <CardFooter>                  
-                  <Button asChild>
-                    <Link href="https://github.com/deryauysal/kappalate"><FaGithub /></Link>
-                  </Button>
-                </CardFooter>
-            </Card>            
-            <Card>                            
-                <CardHeader>
-                  <CardTitle>Stata and R package: teffects2</CardTitle>
-                </CardHeader>
-                <CardContent className="prose dark:prose-invert mb-8">
-                  <p>
-                    It contains the Stata package teffects2. teffects2 estimates average treatment effects (ATEs) and average treatment effects on the treated (ATTs) using observational data. As in Stata's official teffects command, inverse probability weighting (IPW), augmented inverse probability weighting (AIPW), and inverse probability weighted regression adjustment (IPWRA) estimators are supported. However, unlike teffects, teffects2 supports covariate balancing estimation of the propensity score.
-                  </p>
-                  <p>
-                    It contains the R package to estimate AIPW, IPW, and IPWRA estimators using Covariate Balancing Methods: IPT, Graham et al. (2012), and CBSP, Imai and Ratkovic (2014) in addition to the standard approach using maximum likelihood. You can download it via the devtools package and entering install_github("deryauysal/teffects2"). The package is based on the great work on treatment effect estimation in R by 
-                    <Link href="https://github.com/ohines/teffectsR">Oliver Hines.</Link>
-                  </p>
-                </CardContent>
-                <CardFooter>                  
-                  <Button asChild>
-                    <Link href="https://github.com/deryauysal/teffects2"><FaGithub /></Link>
-                  </Button>
-                </CardFooter>
-            </Card>            
+            {/* {
+              metadata?.packages.map(pcg => (
+                <Card key={pcg.id}>                            
+                    <CardHeader>
+                      <CardTitle>{pcg.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent className="prose dark:prose-invert mb-8">
+                      {pcg.description}
+                    </CardContent>
+                    <CardFooter>                  
+                      <Button asChild>
+                        <Link href={pcg.link}>
+                        <FaGithub />
+                        </Link>
+                      </Button>
+                    </CardFooter>
+                </Card>
+              )) */
+            }
+            
           </div>
         </div>
-        <div className="py-32">
+        <div className="py-16">
           <p className="text-center">Programming languages and softwares that I used during my researches</p>
           <div className="mt-8 flex flex-wrap justify-center gap-8">
             <div className="flex items-center gap-3">
@@ -114,8 +102,8 @@ export async function About3() {
             ))}
           </div>
         </div>
-        <div className="py-32">
-          <TypographyH2>Professional Activities</TypographyH2>
+        <div className="py-16">
+          <TypographyH3>Professional Activities</TypographyH3>
           <div className="py-4 grid grid-cols-3 gap-1">
             <Card>
               <CardHeader>
@@ -143,7 +131,19 @@ export async function About3() {
             </Card>
           </div>
         </div>
-        <Experience1 />
+        <section className='py-16'>
+          <div className='container space-y-10 lg:space-y-20'>
+            <div className='flex w-full items-end justify-between'>
+              <TypographyH3>Experiences</TypographyH3>
+              <DownloadFileButton fileName="derya_uysal_cv.pdf" label="Download CV" />
+            </div>
+            {
+              experinceList.map(experince => (
+                  <ExperienceList key={experince.slug} experience={experince.metadata} />
+              ))
+            }
+          </div>
+        </section>
       </div>
     </section>
   );

@@ -1,5 +1,5 @@
 import type { Metadata } from "next/types";
-import { About3 } from "@/components/about3";
+import { About } from "@/components/about";
 
 export const metadata: Metadata = {    
     title : "About",
@@ -8,6 +8,6 @@ export const metadata: Metadata = {
 
 export default async function AboutPage() {
     return (
-        <About3 />
+        <About />
     )
 }

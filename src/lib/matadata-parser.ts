@@ -27,10 +27,7 @@ export type ProjectMeta = Metadata & {
   coauthor: Array<string>
 }
 
-export type PresentationMeta = Metadata & {
-  year: string;
-  presentations: Array<PresentationItem>
-}
+
 
 export type PresentationItem = {
   title: string
@@ -88,7 +85,17 @@ export async function getPeresentationList(): Promise<Array<Presentation>> {
   const dir = path.join(process.cwd(), 'src', 'data', 'markdown', 'presentations');
 
   return getMDXData<PresentationMeta>(dir);
+}
 
+export async function getExperienceList(): Promise<Array<Experience>> {
+ const dir = path.join(process.cwd(), 'src', 'data', 'markdown', 'experiences'); 
+
+ return getMDXData<ExperienceMeta>(dir);
+}
+
+export async function getAbout(): Promise<Array<About>> {
+  const dir = path.join(process.cwd(), 'src', 'data', 'markdown', 'about'); 
+  return getMDXData<AboutMeta>(dir);
 }
 
 export type Publication = {
@@ -103,8 +110,52 @@ export type Project = {
   content: string;
 }
 
+export type PresentationMeta = Metadata & {
+  year: string;
+  presentations: Array<PresentationItem>
+}
+
 export type Presentation = {
   metadata: PresentationMeta;
   slug: string;
   content: string;
+}
+
+export type ExperienceItem = {
+  id: string
+  period: string
+  title: string
+  description: string
+  company: string
+}
+
+export type ExperienceMeta = Metadata & {
+  label?: string
+  experiences: Array<ExperienceItem>
+}
+export type Experience = {  
+  slug?: string;
+  content?: string;
+  metadata: ExperienceMeta
+}
+
+export type SoftwarePackage = {
+  id:string
+  title: string
+  link: string
+  description:string
+}
+
+export type AboutMeta = Metadata & {  
+  title: string
+  publishedAt: string
+  slug: string
+  content: string
+  packages: Array<SoftwarePackage>  
+}
+
+export type About = {
+  slug: string
+  content: string
+  metadata: AboutMeta
 }
