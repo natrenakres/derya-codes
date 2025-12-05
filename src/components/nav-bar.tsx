@@ -20,14 +20,9 @@ const pages = [
         id: 3,
         label: "Teaching",
         href: "/teaching"
-    },
+    },    
     {
         id: 4,
-        label: "Software",
-        href: "/software"
-    },
-    {
-        id: 5,
         label: "About",
         href: "/about"
     }
@@ -59,8 +54,8 @@ export function NavBar(){
                             <ModeToggle />
                         </NavigationMenuItem>         
                         <NavigationMenuItem>
-                            <Button asChild variant="outline">
-                                <Link href="/research">CV</Link>
+                            <Button asChild variant="outline"  >
+                                <Link href="/uploads/derya_uysal_cv.pdf" target="_blank">CV</Link>
                             </Button>
                         </NavigationMenuItem>
                     </NavigationMenuList>

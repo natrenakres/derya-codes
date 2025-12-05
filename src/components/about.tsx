@@ -7,20 +7,18 @@ import Python from "@/assets/img/python.svg";
 import Gauss from "@/assets/img/gauss.png";
 import Latex from "@/assets/img/latex.svg";
 
-
-
-import { FaGithub } from "react-icons/fa";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { getAuthorData } from "@/lib/fetch";
 import { TypographyH2, TypographyH3 } from "./ui/typography";
 import { ExperienceList } from "./experience-list";
-import { getAbout, getExperienceList } from "@/lib/matadata-parser";
+import { getExperienceList } from "@/lib/matadata-parser";
 import { DownloadFileButton } from "./download-file-button";
 
 
 import Content, { metadata } from "@/data/markdown/about/about.mdx";
+import { Button } from "./ui/button";
+import Link from "next/link";
+import { FaGithub } from "react-icons/fa";
 
 export async function About() {  
   const { citationCount, hIndex, paperCount } = await getAuthorData();
@@ -35,23 +33,24 @@ export async function About() {
   return (
     <section className="py-4">
       <div className="container m-auto">
-        <div className="mb-14 grid gap-5 text-center md:grid-cols-2 md:text-left">
-          <TypographyH2>{metadata.title}</TypographyH2>
-          <div className="text-muted-foreground">
-              <Content />
-          </div>
-        </div>
-        <div className="grid gap-7 lg:grid-cols-3">
-          <div className="lg:col-span-2 rounded-(--card-radius) bg-black/2 dark:bg-white/15 p-(--card-padding) outline -outline-offset-1 outline-black/4 dark:outline-white/25 [--card-padding:--spacing(3)] [--card-radius:var(--radius-4xl)]">
+        <TypographyH2>{metadata.title}</TypographyH2>
+        <div className="grid grid-cols-3 gap-8 items-start">
+          <div className="col-span-1 xl:col-span-1 rounded-(--card-radius) bg-black/2 dark:bg-white/15 p-(--card-padding) outline -outline-offset-1 outline-black/4 dark:outline-white/25 [--card-padding:--spacing(3)] [--card-radius:var(--radius-4xl)]">
             <Image
               src={ProfileImg}
               alt="Derya Uysal profile photo"
               className="aspect-5/6 rounded-[calc(var(--card-radius)-var(--card-padding))] bg-gray-800 object-cover shadow-2xl outline -outline-offset-1 outline-white/10"
             />
           </div>
-          <div className="flex flex-col gap-7 md:flex-row lg:flex-col">            
-            {/* {
-              metadata?.packages.map(pcg => (
+          <div className="col-span-2 xl:col-span-2 prose dark:prose-invert">
+              <Content />
+          </div>
+        </div>
+        <div className="container m-auto py-4">
+          <TypographyH2>Softwares</TypographyH2>
+          <div className="flex gap-4  py-4">
+              {
+              metadata?.packages.map((pcg: any) => (
                 <Card key={pcg.id}>                            
                     <CardHeader>
                       <CardTitle>{pcg.title}</CardTitle>
@@ -67,10 +66,10 @@ export async function About() {
                       </Button>
                     </CardFooter>
                 </Card>
-              )) */
+              )) 
             }
             
-          </div>
+          </div>        
         </div>
         <div className="py-16">
           <p className="text-center">Programming languages and softwares that I used during my researches</p>
