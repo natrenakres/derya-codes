@@ -135,7 +135,6 @@ export async function getPaperList(type: WorkType) {
   return data;
 }
 
-
 async function getPaperListByAuthorId( type: WorkType, authorId?: string,): Promise<Array<Paper>> {
   if(!authorId) {
     throw Error("Author ID cannat be null");
@@ -155,7 +154,6 @@ async function getPaperListByAuthorId( type: WorkType, authorId?: string,): Prom
     throw error;
   }
 }
-
 export async function getAuthorData() : Promise<Author> {
   const key = `author:${SEMANTICSCHOLAR_AUTHOR_ID}`;
   const cached = await redis.get(key);

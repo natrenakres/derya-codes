@@ -1,17 +1,17 @@
 import type { ExperienceMeta } from '@/lib/matadata-parser';
-import { TypographyH4 } from './ui/typography';
+import { TypographyH3 } from './ui/typography';
 
 export function ExperienceList({ experience }: { experience: ExperienceMeta }) {
   
   return (
    
-      <div className='container space-y-10 lg:space-y-20'>
+      <div className='container space-y-10 lg:space-y-20 shadow-sm bg-linear-to-br from-background to-muted/40'>
         <div className='flex w-full items-end justify-between'>
-          <TypographyH4>
+          <TypographyH3>
             {experience.label}  
-          </TypographyH4>          
+          </TypographyH3>          
         </div>
-         <ul>
+         <ul className='p-8'>
           {experience.experiences?.map((exp) => (
             <li
               key={exp.id}

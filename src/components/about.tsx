@@ -7,22 +7,21 @@ import Python from "@/assets/img/python.svg";
 import Gauss from "@/assets/img/gauss.png";
 import Latex from "@/assets/img/latex.svg";
 
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getAuthorData } from "@/lib/fetch";
-import { TypographyH2, TypographyH3 } from "./ui/typography";
+import { TypographyH2 } from "./ui/typography";
 import { ExperienceList } from "./experience-list";
-import { getExperienceList } from "@/lib/matadata-parser";
+import { getExperienceList, getPackage, type Packages } from "@/lib/matadata-parser";
 import { DownloadFileButton } from "./download-file-button";
 
 
-import Content, { metadata } from "@/data/markdown/about/about.mdx";
-import { Button } from "./ui/button";
-import Link from "next/link";
-import { FaGithub } from "react-icons/fa";
+import AboutContent from "@/data/markdown/about/about.mdx";
+import { RenderMdx } from "./render-mdx";
 
-export async function About() {  
+export async function About() {    
   const { citationCount, hIndex, paperCount } = await getAuthorData();
   const experinceList = await getExperienceList();  
+  const packages = await getPackage();
   
   const myAchievements = [
       { id: 101, label: "Papers ", value: paperCount },
@@ -30,11 +29,14 @@ export async function About() {
       { id: 103, label: "Citations", value: citationCount }      
     ];
 
+
+  
+
   return (
     <section className="py-4">
       <div className="container m-auto">
-        <TypographyH2>{metadata.title}</TypographyH2>
-        <div className="grid grid-cols-3 gap-8 items-start">
+        <TypographyH2>About</TypographyH2>
+        <div className="grid grid-cols-3 gap-8 items-start shadow-sm bg-linear-to-br from-background to-muted/40">
           <div className="col-span-1 xl:col-span-1 rounded-(--card-radius) bg-black/2 dark:bg-white/15 p-(--card-padding) outline -outline-offset-1 outline-black/4 dark:outline-white/25 [--card-padding:--spacing(3)] [--card-radius:var(--radius-4xl)]">
             <Image
               src={ProfileImg}
@@ -42,29 +44,24 @@ export async function About() {
               className="aspect-5/6 rounded-[calc(var(--card-radius)-var(--card-padding))] bg-gray-800 object-cover shadow-2xl outline -outline-offset-1 outline-white/10"
             />
           </div>
-          <div className="col-span-2 xl:col-span-2 prose dark:prose-invert">
-              <Content />
+          <div className="col-span-2 xl:col-span-2 prose max-w-none dark:prose-invert ">
+              <AboutContent />
           </div>
         </div>
         <div className="container m-auto py-4">
           <TypographyH2>Softwares</TypographyH2>
           <div className="flex gap-4  py-4">
               {
-              metadata?.packages.map((pcg: any) => (
-                <Card key={pcg.id}>                            
-                    <CardHeader>
-                      <CardTitle>{pcg.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="prose dark:prose-invert mb-8">
-                      {pcg.description}
-                    </CardContent>
-                    <CardFooter>                  
-                      <Button asChild>
-                        <Link href={pcg.link}>
-                        <FaGithub />
-                        </Link>
-                      </Button>
-                    </CardFooter>
+              packages.map((pcg: Packages) => (
+                <Card key={pcg.slug} className="flex flex-col justify-between shadow-sm bg-linear-to-br from-background to-muted/40 border-none">
+                    <div>
+                      <CardHeader>
+                        <CardTitle className="text-2xl">{pcg.metadata.title}</CardTitle>
+                      </CardHeader>
+                      <CardContent className="prose dark:prose-invert mb-8">
+                        <RenderMdx markdownContent={pcg.content} />
+                      </CardContent>
+                    </div>                    
                 </Card>
               )) 
             }
@@ -72,8 +69,8 @@ export async function About() {
           </div>        
         </div>
         <div className="py-16">
-          <p className="text-center">Programming languages and softwares that I used during my researches</p>
-          <div className="mt-8 flex flex-wrap justify-center gap-8">
+          <TypographyH2>Programming languages and softwares</TypographyH2>
+          <div className="mt-8 flex flex-wrap justify-center gap-8 shadow-sm bg-linear-to-br from-background to-muted/40">
             <div className="flex items-center gap-3">
                 <Image src={Python}  className="h-16 w-auto md:h-18" alt="Python programming language logo" />
                 <Image src={RLogo} className="h-16 w-auto md:h-18" alt="R programming language logo" />
@@ -84,13 +81,11 @@ export async function About() {
               </div>
           </div>
         </div>
-        <div className="bg-muted relative overflow-hidden rounded-xl p-7 md:p-16">
-          <div className="flex flex-col gap-4 text-center md:text-left">
-            <h2 className="text-3xl font-semibold md:text-4xl">
-              My Achievements in Numbers
-            </h2>            
-          </div>
-          <div className="mt-10 grid grid-cols-2 gap-x-4 gap-y-8 text-center lg:grid-cols-3">
+        <TypographyH2>
+          My Achievements in Numbers
+        </TypographyH2>            
+        <div className="relative overflow-hidden rounded-xl p-4 shadow-sm bg-linear-to-br from-background to-muted/40">          
+          <div className="mt-10 grid grid-cols-2 gap-x-2 gap-y-4 text-center lg:grid-cols-3">
             {myAchievements.map(item => (
               <div className="flex flex-col gap-2" key={item.id}>
                 <span className="text-4xl font-semibold md:text-5xl">
@@ -102,7 +97,7 @@ export async function About() {
           </div>
         </div>
         <div className="py-16">
-          <TypographyH3>Professional Activities</TypographyH3>
+          <TypographyH2>Professional Activities</TypographyH2>
           <div className="py-4 grid grid-cols-3 gap-1">
             <Card>
               <CardHeader>
@@ -133,7 +128,7 @@ export async function About() {
         <section className='py-16'>
           <div className='container space-y-10 lg:space-y-20'>
             <div className='flex w-full items-end justify-between'>
-              <TypographyH3>Experiences</TypographyH3>
+              <TypographyH2>Experiences</TypographyH2>
               <DownloadFileButton fileName="derya_uysal_cv.pdf" label="Download CV" />
             </div>
             {

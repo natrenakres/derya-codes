@@ -93,9 +93,9 @@ export async function getExperienceList(): Promise<Array<Experience>> {
  return getMDXData<ExperienceMeta>(dir);
 }
 
-export async function getAbout(): Promise<Array<About>> {
-  const dir = path.join(process.cwd(), 'src', 'data', 'markdown', 'about'); 
-  return getMDXData<AboutMeta>(dir);
+export async function getPackage(): Promise<Array<Packages>> {
+  const dir = path.join(process.cwd(), 'src', 'data', 'markdown', 'packages'); 
+  return getMDXData<PackageMeta>(dir);
 }
 
 export type Publication = {
@@ -139,23 +139,14 @@ export type Experience = {
   metadata: ExperienceMeta
 }
 
-export type SoftwarePackage = {
-  id:string
-  title: string
-  link: string
-  description:string
+export type PackageMeta = Metadata & {  
+  title: string  
+  slug: string
+  content: string  
 }
 
-export type AboutMeta = Metadata & {  
-  title: string
-  publishedAt: string
-  slug: string
-  content: string
-  packages: Array<SoftwarePackage>  
-}
-
-export type About = {
-  slug: string
-  content: string
-  metadata: AboutMeta
+export type Packages =  {
+    metadata: PackageMeta;
+    slug: string;
+    content: string;
 }

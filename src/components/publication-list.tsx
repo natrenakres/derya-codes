@@ -32,7 +32,7 @@ function PublicationCard({
   paper,
 }: {
   paper: Paper}) {
-    const { paperId, title, journal, fieldsOfStudy, publicationDate  } = paper;
+    const { paperId, title, journal, fieldsOfStudy, publicationDate, citationCount  } = paper;
   return (
     <div className='bg-muted flex w-full md:w-80 flex-col justify-between gap-2 rounded-3xl p-5'>
       <div>
@@ -56,6 +56,12 @@ function PublicationCard({
             {keyword}
           </li>
         ))}
+        {
+          <li className='mt-1 flex items-center gap-2 font-medium'>
+              <Target className='size-4' />
+              {citationCount} citations
+          </li>
+        }
       </ul>
       <div className='mt-5 flex items-end justify-between'>
         <h2 className='text-base font-medium tracking-tighter'>

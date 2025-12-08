@@ -77,7 +77,7 @@ const PaperContent = ({
               </p>
             </div>
             <section                            
-              className="prose dark:prose-invert mb-8"
+              className="w-full prose max-w-none dark:prose-invert mb-8 "
             >
               <p>
                 {abstract}
