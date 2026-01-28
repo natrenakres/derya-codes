@@ -3,11 +3,9 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import HeroImage from "@/assets/img/hero.jpg";
 import Link from "next/link";
+import { siteMetadata } from "@/data/metadata";
 
-interface Hero3Props {
-  heading?: string;
-  title?: string;
-  description?: string;
+interface MainHeroProps {  
   buttons?: {
     primary?: {
       text: string;
@@ -17,32 +15,22 @@ interface Hero3Props {
       text: string;
       url: string;
     };
-  };
-  reviews?: {
-    count: number;
-    avatars: {
-      src: string;
-      alt: string;
-    }[];
-    rating?: number;
-  };
+  }
 }
 
-const Hero3 = ({
-  heading = "Dr. Derya Uysal",
-  title = "Associate Professor",
-  description = "I am an associate professor in the Department of Economics at the University of Munich. I am also an Affiliate at CESifo. My research interests are microeconometrics and applied econometrics in labour economics, with particular emphasis on program evaluation.",
+export const MainHero = ({  
   buttons = {
     primary: {
       text: "Research",
-      url: "/resarch",
+      url: "/research",
     },
     secondary: {
       text: "About",
       url: "/about",
     },
   }
-}: Hero3Props) => {
+}: MainHeroProps) => {
+  const { title, name, description } = siteMetadata;
   return (
     <section className="py-4">
       <div className="container m-auto grid items-center gap-10 lg:grid-cols-2 lg:gap-20">
@@ -51,7 +39,7 @@ const Hero3 = ({
             {title}
           </p>
           <h2 className="my-4 text-pretty text-4xl font-bold lg:text-6xl xl:text-7xl">
-            {heading}
+            {name}
           </h2>
           <p className="text-muted-foreground mb-8 max-w-xl lg:text-xl">
             {description}
@@ -80,11 +68,11 @@ const Hero3 = ({
             )}
           </div>
         </div>
-        <div className="flex border-2 border-secondary">
+        <div className="flex rounded-(--card-radius) bg-black/2 dark:bg-white/15 p-(--card-padding) outline -outline-offset-1 outline-black/4 dark:outline-white/25 [--card-padding:--spacing(3)] [--card-radius:var(--radius-4xl)]">
           <Image
             src={HeroImage}
             alt="Derya Uysal Profile Photo"
-            className="max-h-[600px] w-full rounded-md object-cover lg:max-h-[800px]"
+            className="max-h-[600px] w-full lg:max-h-[800px] rounded-[calc(var(--card-radius)-var(--card-padding))] bg-gray-800 object-cover shadow-2xl outline -outline-offset-1 outline-white/10"
           />
         </div>
       </div>
@@ -92,4 +80,4 @@ const Hero3 = ({
   );
 };
 
-export { Hero3 };
+

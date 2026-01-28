@@ -1,15 +1,19 @@
-import { Contact7 } from "@/components/contact7";
-import { Hero3 } from "@/components/hero3";
-import { List2 } from "@/components/list2";
+import { getPeresentationList } from "@/lib/matadata-parser";
+import { Contact } from "@/components/contact";
+import { MainHero } from "@/components/main-hero";
+import { AcademicPresentations } from "@/components/academic-presentations";
 import { PublicationList } from "@/components/publication-list";
+import { getPaperList } from "@/lib/fetch";
 
-export default function Home() {
+export default async function Home() {  
+  const paperList = await getPaperList("journal-article");   
+  const presentationList = await getPeresentationList();
   return (
-    <>
-      <Hero3 />    
-      <PublicationList />
-      <List2 />
-      <Contact7 />
+    <>    
+      <MainHero />    
+      <PublicationList paperList={paperList} />
+      <AcademicPresentations presentationList={presentationList.sort((a, b) => +b.metadata.year - +a.metadata.year)}  />          
+      <Contact />
     </>
   );
 }

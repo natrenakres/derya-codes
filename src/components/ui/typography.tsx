@@ -44,3 +44,12 @@ export function TypographyP({children}:{children: ReactNode}) {
     </p>
   )
 }
+
+
+export function TypographyMuted({ children}:{children: ReactNode}) {
+  return (
+    <p className="text-muted-foreground text-sm">
+      {children}
+    </p>
+  )
+}

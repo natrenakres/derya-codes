@@ -33,7 +33,7 @@ export const BorderButton = ({
 
 const Illustration = (props: React.SVGProps<SVGSVGElement>) => {
   return (
-    <svg
+    <svg      
       width="12"
       height="13"
       fill="none"
