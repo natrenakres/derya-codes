@@ -1,10 +1,10 @@
 import Bottleneck from "bottleneck";
 import { SEMANTICSCHOLAR_API_URL, SEMANTICSCHOLAR_AUTHOR_ID  } from "./constants";
-import redis, { CACHE_TTL } from "./cache";
+import { cache } from "./cache";
 
 
 const limeter = new Bottleneck({
-  minTime: 300,
+  minTime: 3000,
   maxConcurrent: 1
 })
 
@@ -118,21 +118,10 @@ export type PaperDetail = {
 
 type WorkType = "journal-article" | "working-paper";
 
+const getCachedPaperList = cache(getPaperListByAuthorId, "paperListByAuthorId", 24 * 60 * 60);
+
 export async function getPaperList(type: WorkType) {
-  const key = `author:${SEMANTICSCHOLAR_AUTHOR_ID}:${type}`;
-  const cached = await redis.get(key);
-  if(cached) {
-    console.log("Hit the cache key: ", key);
-    return cached as Paper[];
-  }
-  
-  const data = await getPaperListByAuthorId(type, SEMANTICSCHOLAR_AUTHOR_ID);
-
-  await redis.set(key, data, {
-    ex: CACHE_TTL
-  })
-
-  return data;
+  return await getCachedPaperList(type, SEMANTICSCHOLAR_AUTHOR_ID);
 }
 
 async function getPaperListByAuthorId( type: WorkType, authorId?: string,): Promise<Array<Paper>> {
@@ -149,48 +138,19 @@ async function getPaperListByAuthorId( type: WorkType, authorId?: string,): Prom
     }
   
     return response.papers.filter(p => !p.publicationDate); 
-  } catch (error) {
-    console.error("Error during the fetch working list by author id ", error);
-    throw error;
-  }
-}
-export async function getAuthorData() : Promise<Author> {
-  const key = `author:${SEMANTICSCHOLAR_AUTHOR_ID}`;
-  const cached = await redis.get(key);
-
-  if(cached) {
-    console.log("Hit the author cache: ", key);
-    return cached as Author;
-  }
-
-  try {
-    const response = await getSemanticScholarDataLimitter(SEMANTICSCHOLAR_AUTHOR_ID);
-
-    await redis.set(key, response, {
-      ex: CACHE_TTL
-    });
-  
-    return response;
-  } catch (error) {
-    console.error("Error during the fetch author data");
+  } catch (error) {    
     throw error;
   }
 }
 
+const getCachedAuthorData = cache(getSemanticScholarDataLimitter, "authorData", 24 * 60 * 60);
+
+export async function getAuthorData() : Promise<Author> {  
+  return await getCachedAuthorData(SEMANTICSCHOLAR_AUTHOR_ID);
+}
+
+const getCachedPaper = cache(getSemanticScholarPaperDataLimitter, "paper", 24 * 60 * 60);
 
 export async function getPaper(paperId: string): Promise<PaperDetail> {
-  const key = `paper:${paperId}`;
-  const cached = await redis.get(key);
-  if(cached) {
-    console.log("Hit the paper cache: ", paperId);
-    return cached as PaperDetail;
-  }
-
-  const response = await getSemanticScholarPaperDataLimitter(paperId);
-
-  await redis.set(key, response, {
-    ex: CACHE_TTL
-  })
-
-  return response;
+  return await getCachedPaper(paperId);
 }

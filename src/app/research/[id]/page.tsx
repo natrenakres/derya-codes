@@ -7,11 +7,11 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-import { getPaper, getPaperList } from '@/lib/fetch';
+import { getPaper } from '@/lib/fetch';
 
-export default async function ResearchDetailPage({params} : { params: Promise<{id: string}>}) {
-  const { id: paperId } = await params;
-  const paper = await getPaper(paperId);
+export default async function ResearchDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const paperId = (await params).id;
+  const paper = await getPaper(paperId);  
   return (
     <>
       <section className='py-4'>
@@ -36,10 +36,4 @@ export default async function ResearchDetailPage({params} : { params: Promise<{i
       <PaperContent paper={paper} />
     </>
   );
-}
-
-export async function generateStaticParams() {
-  const papers = await getPaperList("journal-article");
-
-  return papers.map(p => p.paperId);
 }
